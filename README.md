@@ -22,13 +22,13 @@ module "cloudstaking_kusama" {
 }
 ```
 
-#### Providers
+## Providers
 
 | Name | Version |
 |------|---------|
 | scaleway | n/a |
 
-#### Inputs
+## Inputs
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
@@ -38,7 +38,7 @@ module "cloudstaking_kusama" {
 | security_group_name | Name of the security group | `string` | `"validator-sg"` |
 | volume_size | Volume size where the chain state is going to be saved - check Kusama/Polkadot requirements | `number` | `200` |
 
-#### Outputs
+## Outputs
 
 | Name | Description |
 |------|-------------|
