@@ -1,6 +1,6 @@
 # terraform-scaleway-polkadot
 
-Terraform module to bootstrap Scaleway instances for Kusama/Polkadot validators. It creates security group, instance volume (`200 GB` by default) and ensure the latest snapshot from [Polkashots](https://polkashots.io).
+Terraform module to bootstrap ready-to-use _single node_ (or optionally _active-standby_) Kusama/Polkadot validators in Scaleway. It creates security group, instance volume (`200 GB` by default) and ensure the latest snapshot from [Polkashots](https://polkashots.io).
 
 ## Requirements
 
