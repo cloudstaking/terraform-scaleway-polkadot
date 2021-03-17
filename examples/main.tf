@@ -11,10 +11,10 @@ terraform {
 # Provider(s)
 provider "scaleway" {}
 
-module "validator_TMP" {
+module "validator" {
   source = "../"
 
-  instance_name       = "validatorTMP"
-  security_group_name = "validatorTMP-sg"
+  instance_name       = "validator"
+  security_group_name = "validator-sg"
   chain               = "kusama"
 }
