@@ -26,13 +26,31 @@ module "kusama_validator" {
 }
 ```
 
-#### Providers
+If `enable_polkashots` is set, it'll take ~10 minutes to download and extract the latest snapshot. You can check the process within the instance
+
+```
+$ tail -f  /var/log/cloud-init-output.log
+4323850K .......... .......... .......... .......... .......... 99%  313M 0s
+4323900K .......... ......                                     100% 56.2M=78s
+
+2021-03-17 14:27:38 (54.2 MB/s) - ‘/srv/kusama.RocksDb.7z’ saved [4427690609/4427690609]
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=C.UTF-8,Utf16=on,HugeFiles=on,64 bits,3 CPUs AMD EPYC 7282 16-Core Processor                 (830F10),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 4427690609 bytes (4223 MiB)
+
+Extracting archive: kusama.RocksDb.7z
+```
+
+## Providers
 
 | Name | Version |
 |------|---------|
 | scaleway | n/a |
 
-#### Inputs
+## Inputs
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
@@ -46,7 +64,7 @@ module "kusama_validator" {
 | tags | Tags for the instance | `list` | `[]` |
 | volume_size | Volume size where the chain state is going to be saved (only applies if additional_volume variable set) - check Kusama/Polkadot requirements | `number` | `200` |
 
-#### Outputs
+## Outputs
 
 | Name | Description |
 |------|-------------|
