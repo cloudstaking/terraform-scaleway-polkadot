@@ -24,9 +24,13 @@ runcmd:
   - [ sh, -c, 'echo "deb http://deb.debian.org/debian/ unstable main" | tee /etc/apt/sources.list.d/unstable.list' ]
   - [ sh, -c, '/bin/echo -e "Package: *\nPin: release a=unstable\nPin-Priority: 150\n" | tee /etc/apt/preferences.d/limit-unstable' ]
   - apt update
+%{ if additional_volume ~}
   - mkfs -t ext4 /dev/sda && mount /dev/sda /srv
   - echo "/dev/sda /srv ext4 rw,discard,errors=remount-ro 0 1" >> /etc/fstab
+%{ endif ~}
+%{ if enable_polkashots ~}
   - wget https://${chain.short}-rocksdb.polkashots.io/snapshot -O /srv/${chain.name}.RocksDb.7z
   - cd /srv && 7z x ${chain.name}.RocksDb.7z -o/srv/${chain.name}/chains/ksmcc3
   - rm -rf /srv/${chain.name}.RocksDb.7z
   - chown 1000:1000 /srv/${chain.name} -R
+%{ endif ~}
