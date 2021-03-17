@@ -9,10 +9,7 @@ terraform {
 }
 
 # Provider(s)
-provider "scaleway" {
-  zone   = "fr-par-1"
-  region = "fr-par"
-}
+provider "scaleway" {}
 
 module "validator_TMP" {
   source = "../"
