@@ -48,5 +48,5 @@ resource "scaleway_instance_server" "validator" {
     additional_volume = var.additional_volume
   })
 
-  tags = ["validator"]
+  tags = var.tags
 }

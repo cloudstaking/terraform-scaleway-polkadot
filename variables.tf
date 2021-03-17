@@ -39,3 +39,8 @@ variable "enable_polkashots" {
   description = "Pull the latest Polkadot/Kusama (depending on chain variable) from polkashots.io"
   type        = bool
 }
+
+variable "tags" {
+  default     = []
+  description = "Tags for the instance"
+}
