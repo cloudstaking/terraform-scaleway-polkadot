@@ -18,5 +18,9 @@ module "validator" {
 
   instance_name       = "validator"
   security_group_name = "validator-sg"
-  chain               = "kusama"
+
+  additional_volume                = true
+  enable_polkashots                = true
+  enable_docker_compose            = true
+  polkadot_additional_common_flags = "--name=CLOUDSTAKING --telemetry-url 'wss://telemetry.polkadot.io/submit/ 1'"
 }

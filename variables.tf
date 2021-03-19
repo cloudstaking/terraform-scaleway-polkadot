@@ -44,3 +44,14 @@ variable "tags" {
   default     = []
   description = "Tags for the instance"
 }
+
+variable "enable_docker_compose" {
+  default     = false
+  description = "Create a docker-compose.yml file under within /srv"
+  type        = bool
+}
+
+variable "polkadot_additional_common_flags" {
+  default     = ""
+  description = "If enable_docker_compose is true, the content of this variable will be appended to the polkadot command arguments"
+}
