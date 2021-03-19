@@ -3,5 +3,8 @@ terraform {
     scaleway = {
       source = "scaleway/scaleway"
     }
+    github = {
+      source = "integrations/github"
+    }
   }
 }
