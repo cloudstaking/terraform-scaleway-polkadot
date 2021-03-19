@@ -7,14 +7,11 @@ package_reboot_if_required: true
 apt:
   sources:
     docker.list:
-      source: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+      source: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
       keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 
 packages:
   - apt-transport-https
-  - ca-certificates
-  - curl
-  - gnupg2
   - software-properties-common
   - p7zip-full
   - ntp
@@ -39,12 +36,12 @@ write_files:
 - encoding: b64
   content: ${docker_compose}
   owner: root:root
-  path: /tmp/generate-docker-compose.sh
+  path: /root/generate-docker-compose.sh
   permissions: '755'
 - encoding: b64
   content: ${nginx_config}
   owner: root:root
-  path: /tmp/nginx.conf
+  path: /root/nginx.conf
   permissions: '0644'
 
 runcmd:
@@ -56,5 +53,5 @@ runcmd:
   - mkdir /srv/${chain.name} 
 %{ endif ~}
   - chown 1000:1000 /srv/${chain.name} -R
-  - bash /tmp/generate-docker-compose.sh scaleway
-  - mv /tmp/nginx.conf /srv
+  - bash /root/generate-docker-compose.sh scaleway && rm -rf /root/generate-docker-compose.sh
+  - mv /root/nginx.conf /srv
