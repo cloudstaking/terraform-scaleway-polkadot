@@ -54,7 +54,7 @@ resource "scaleway_instance_server" "validator" {
   name = var.instance_name
   type = var.instance_type
 
-  image                 = "debian_buster"
+  image                 = "ubuntu_focal"
   ip_id                 = scaleway_instance_ip.public_ip.id
   enable_ipv6           = true
   security_group_id     = scaleway_instance_security_group.validator.id
