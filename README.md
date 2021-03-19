@@ -28,20 +28,7 @@ module "kusama_validator" {
 }
 ```
 
-If `enable_polkashots` is set, it'll take ~10 minutes to download and extract the latest snapshot. You can check the process within the instance
-
-```sh
-$ tail -f  /var/log/cloud-init-output.log
-4323850K .......... .......... .......... .......... .......... 99%  313M 0s
-4323900K .......... ......                                     100% 56.2M=78s
-
-2021-03-17 14:27:38 (54.2 MB/s) - ‘/srv/kusama.RocksDb.7z’ saved [4427690609/4427690609]
-
-Scanning the drive for archives:
-1 file, 4427690609 bytes (4223 MiB)
-
-Extracting archive: kusama.RocksDb.7z
-```
+If `enable_polkashots` is set, it'll take ~10 minutes to download and extract the latest snapshot. You can check the process within the instance with `tail -f  /var/log/cloud-init-output.log`
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
