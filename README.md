@@ -18,7 +18,7 @@ More information within the [Scaleway Terraform Provider](https://registry.terra
 
 ```hcl
 module "kusama_validator" {
-  source = "github.com/cloudstaking/terraform-scaleway-polkadot?ref=1.1.0"
+  source = "github.com/cloudstaking/terraform-scaleway-polkadot?ref=1.2.0"
 
   instance_name       = "ksm-validator"
   security_group_name = "ksm-validator"
