@@ -46,7 +46,7 @@ resource "scaleway_instance_ip" "public_ip" {}
 resource "scaleway_instance_volume" "validator" {
   count = var.additional_volume ? 1 : 0
 
-  size_in_gb = var.volume_size
+  size_in_gb = var.additional_volume_size
   type       = "b_ssd"
 }
 
