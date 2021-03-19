@@ -12,11 +12,11 @@ case $arg in
     ;;
 
   aws)
-    IP="aws"
+    IP="TODO"
     ;;
 
   gcp)
-    IP="gcp"
+    IP="TODO"
     ;;
 
   digitalocean)
