@@ -90,7 +90,7 @@ func TestValidatorWithPolkashots(t *testing.T) {
 	description := fmt.Sprintf("SSHing to validator %s to check disk size", publicInstanceIP)
 
 	retry.DoWithRetry(t, description, maxRetries, timeBetweenRetries, func() (string, error) {
-		return checkDiskSize(t, publicHost, 190000000) // 190G
+		return checkDiskSize(t, publicHost, 190000000, "/srv") // 190G
 	})
 
 	description = fmt.Sprintf("SSHing to validator %s to check if docker & docker-compose are installed", publicInstanceIP)
