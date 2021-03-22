@@ -52,8 +52,8 @@ resource "scaleway_instance_volume" "validator" {
 }
 
 resource "scaleway_account_ssh_key" "validator" {
-    name        = "${var.instance_name}-key"
-    public_key = var.ssh_key
+  name       = "${var.instance_name}-key"
+  public_key = var.ssh_key
 }
 
 resource "scaleway_instance_server" "validator" {
@@ -70,7 +70,7 @@ resource "scaleway_instance_server" "validator" {
 
   tags = var.tags
 
-  depends_on = [ scaleway_account_ssh_key.validator ]
+  depends_on = [scaleway_account_ssh_key.validator]
 }
 
 data "github_release" "polkadot" {

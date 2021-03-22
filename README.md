@@ -51,6 +51,7 @@ No Modules.
 | Name |
 |------|
 | [github_release](https://registry.terraform.io/providers/integrations/github/latest/docs/data-sources/release) |
+| [scaleway_account_ssh_key](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/resources/account_ssh_key) |
 | [scaleway_instance_ip](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/resources/instance_ip) |
 | [scaleway_instance_security_group](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/resources/instance_security_group) |
 | [scaleway_instance_server](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/resources/instance_server) |
@@ -63,13 +64,13 @@ No Modules.
 | additional\_volume | By default, DEV1-M comes with 40GB disk size. Set this variable in order to create an additional volume (mounted in /srv) | `bool` | `true` | no |
 | additional\_volume\_size | Volume size where the chain state is going to be saved (only applies if additional\_volume variable set) - check Kusama/Polkadot requirements | `number` | `200` | no |
 | chain | Chain name: kusama or polkadot. Variable required to download the latest snapshot from polkashots.io | `string` | `"kusama"` | no |
-| enable\_docker\_compose | Application layer - create a docker-compose.yml (`/srv/docker-compose.yml`) with the latest polkadot version and nginx as a reverse-proxy | `bool` | `false` | no |
 | enable\_polkashots | Pull latest Polkadot/Kusama (depending on chain variable) from polkashots.io | `bool` | `true` | no |
 | instance\_name | Name of the Scaleway instance | `string` | `"validator"` | no |
 | instance\_type | Instance type: for Kusama DEV1-M is fine, for Polkadot maybe GP1-M. Check requirements in the Polkadot wiki | `string` | `"DEV1-M"` | no |
 | polkadot\_additional\_common\_flags | Application layer - when `enable_docker_compose = true`, the content of this variable will be appended to the polkadot command arguments | `string` | `""` | no |
-| security\_group\_name | Security group name | `string` | `"validator-sg"` | no |
+| security\_group\_name | Security group name | `string` | `""` | no |
 | security\_group\_whitelisted\_ssh\_ip | List of CIDRs the instance is going to accept SSH connections from. | `string` | `"0.0.0.0/0"` | no |
+| ssh\_key | SSH Key to use for the instance | `any` | n/a | yes |
 | tags | Tags for the instance | `list` | `[]` | no |
 
 ## Outputs
