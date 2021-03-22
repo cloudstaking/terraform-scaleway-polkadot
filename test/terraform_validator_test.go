@@ -86,7 +86,7 @@ func TestValidatorWithPolkashots(t *testing.T) {
 	}
 
 	maxRetries := 30
-	timeBetweenRetries := 30 * time.Second
+	timeBetweenRetries := 60 * time.Second
 	description := fmt.Sprintf("SSHing to validator %s to check disk size", publicInstanceIP)
 
 	retry.DoWithRetry(t, description, maxRetries, timeBetweenRetries, func() (string, error) {
