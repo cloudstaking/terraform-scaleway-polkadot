@@ -38,11 +38,6 @@ write_files:
   owner: root:root
   path: /root/generate-docker-compose.sh
   permissions: '755'
-- encoding: b64
-  content: ${nginx_config}
-  owner: root:root
-  path: /root/nginx.conf
-  permissions: '0644'
 
 runcmd:
 %{ if enable_polkashots ~}
@@ -54,4 +49,3 @@ runcmd:
 %{ endif ~}
   - chown 1000:1000 /srv/${chain.name} -R
   - bash /root/generate-docker-compose.sh scaleway && rm -rf /root/generate-docker-compose.sh
-  - mv /root/nginx.conf /srv

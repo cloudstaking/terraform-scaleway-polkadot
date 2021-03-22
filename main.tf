@@ -5,6 +5,8 @@ locals {
     other    = { name = var.chain, short = var.chain }
   }
 
+  security_group_name = var.security_group_name != "" ? var.security_group_name : "${var.instance_name}-sg"
+
   docker_compose = templatefile("${path.module}/templates/generate-docker-compose.sh.tpl", {
     chain                   = var.chain
     enable_polkashots       = var.enable_polkashots
@@ -16,8 +18,7 @@ locals {
     chain             = lookup(local.chain, var.chain, local.chain.other)
     enable_polkashots = var.enable_polkashots
     additional_volume = var.additional_volume
-    docker_compose    = var.enable_docker_compose ? base64encode(local.docker_compose) : ""
-    nginx_config      = base64encode(file("${path.module}/templates/nginx.conf.tpl"))
+    docker_compose    = base64encode(local.docker_compose)
   })
 }
 
@@ -50,6 +51,11 @@ resource "scaleway_instance_volume" "validator" {
   type       = "b_ssd"
 }
 
+resource "scaleway_account_ssh_key" "validator" {
+    name        = "${var.instance_name}-key"
+    public_key = var.ssh_key
+}
+
 resource "scaleway_instance_server" "validator" {
   name = var.instance_name
   type = var.instance_type
@@ -63,6 +69,8 @@ resource "scaleway_instance_server" "validator" {
   cloud_init = local.cloud_init
 
   tags = var.tags
+
+  depends_on = [ scaleway_account_ssh_key.validator ]
 }
 
 data "github_release" "polkadot" {

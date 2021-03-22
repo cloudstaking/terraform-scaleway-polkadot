@@ -12,11 +12,11 @@ case $arg in
     ;;
 
   aws)
-    IP="TODO"
+    IP="$(curl http://169.254.169.254/latest/meta-data/public-ipv4)"
     ;;
 
   gcp)
-    IP="TODO"
+    IP="$(curl "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip" -H "Metadata-Flavor: Google")"
     ;;
 
   digitalocean)
@@ -43,7 +43,7 @@ services:
       - 9615:9615
     volumes:
       - /srv/${chain}/:/polkadot/.local/share/polkadot
-    command: --validator --chain ${chain} --rpc-methods=Unsafe %{ if enable_polkashots ~} --database=RocksDb --unsafe-pruning --pruning=1000 %{ endif ~} --public-addr=/ip4/$${IP}/tcp/80 ${additional_common_flags}
+    command: --validator --rpc-methods=Unsafe --chain ${chain} %{ if enable_polkashots ~} --database=RocksDb --unsafe-pruning --pruning=1000 %{ endif ~} --public-addr=/ip4/$${IP}/tcp/80 ${additional_common_flags}
     networks:
       - default
 
@@ -60,4 +60,28 @@ services:
 
 networks:
   default:
+EOF
+
+cat <<- EOF > /srv/nginx.conf
+user              nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+events {
+        worker_connections 1024;
+}
+
+stream {
+        # Specifies the main log format.
+        log_format stream '\$remote_addr [\$time_local] \$status "\$connection"';
+
+        access_log /dev/stdout stream;
+
+        server {
+                listen 0.0.0.0:80;
+                proxy_pass validator:30333;
+        }
+}
 EOF
