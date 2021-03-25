@@ -9,7 +9,6 @@ Terraform module to bootstrap ready-to-use _single node_ (or optionally _active-
 It requires to have Scaleway account and the following environment variables exported. 
 
 ```
-export SCW_DEFAULT_ORGANIZATION_ID=XXXXX-XXX-XXXX-XXXXXXXXX
 export SCW_ACCESS_KEY=YYYYYYYYYY
 export SCW_SECRET_KEY=ZZZZZZZZZ
 ```
