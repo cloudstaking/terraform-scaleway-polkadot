@@ -12,12 +12,7 @@ variable "tags" {
   default     = {}
 }
 
-variable "enable_polkashots" {
-  description = "Pull latest Polkadot/Kusama (depending on chain variable) from polkashots.io"
-  type        = bool
-}
-
-variable "additional_volume" {
-  description = "By default, DEV1-M comes with 40GB disk size. Set this variable in order to create an additional volume (mounted in /srv)"
-  type        = bool
+variable "polkadot_additional_common_flags" {
+  default     = ""
+  description = "Application layer - the content of this variable will be appended to the polkadot command arguments"
 }
