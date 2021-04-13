@@ -22,7 +22,7 @@ variable "tags" {
 }
 
 variable "disk_size" {
-  description = "Disk size. For digital ocean and Scaleway volume is created and mounted under /home"
+  description = "Disk size. Volume is created and mounted under /home"
   default     = 200
   type        = number
 }
