@@ -28,6 +28,8 @@ module "kusama_validator" {
 
   instance_name = "ksm-validator"
   ssh_key       = "ssh-rsa XXXXXXXXXXXXXX"
+  
+  polkadot_additional_common_flags = "--name=CLOUDSTAKING-BLUE --telemetry-url 'wss://telemetry.polkadot.io/submit/ 1'"
 }
 ```
 
