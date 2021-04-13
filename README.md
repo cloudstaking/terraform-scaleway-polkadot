@@ -1,8 +1,13 @@
 # terraform-scaleway-polkadot
 
-Terraform module to bootstrap ready-to-use _single node_ (or optionally _active-standby_) Kusama/Polkadot validators in Scaleway. Besides infrastructure (security group, instance, volume, etc), it also does:
-- Pulls the latest snapshot from [Polkashots](https://polkashots.io)
-- Creates a docker-compose with the [latest polkadot's release](https://github.com/paritytech/polkadot/releases) and nginx reverse-proxy (for libp2p port).
+Terraform module to bootstrap ready-to-use _single node_ (or optionally _active-standby_) Kusama/Polkadot validators in Scaleway. Besides infrastructure components (security group, instance, volume, etc), it also:
+
+- Optionally pulls latest snapshot from [Polkashots](https://polkashots.io)
+- [Node exporter](https://github.com/prometheus/node_exporter) with HTTPs to securly pull metrics from your monitoring systems.
+- Nginx as a reverse proxy for libp2p
+- Support for different deplotments methods: either using docker/docker-compose or deploying the binary itself in the host.
+
+It uses the latest official Ubuntu 20.04 LTS (no custom image). 
 
 ## Requirements
 
