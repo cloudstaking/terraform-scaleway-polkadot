@@ -16,8 +16,11 @@ provider "scaleway" {
 module "validator" {
   source = "../.."
 
-  instance_name     = var.instance_name
-  ssh_key           = var.ssh_key
-  additional_volume = var.additional_volume
-  enable_polkashots = var.enable_polkashots
+  instance_name                    = var.instance_name
+  ssh_key                          = var.ssh_key
+  enable_polkashots                = true
+  polkadot_additional_common_flags = "--name=CLOUDSTAKING-TEST --telemetry-url 'wss://telemetry.polkadot.io/submit/ 1'"
+
+  # This is optional
+  tags = ["blue", "terraform"]
 }
