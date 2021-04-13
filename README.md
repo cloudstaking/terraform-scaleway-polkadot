@@ -1,8 +1,13 @@
 # terraform-scaleway-polkadot
 
-Terraform module to bootstrap ready-to-use _single node_ (or optionally _active-standby_) Kusama/Polkadot validators in Scaleway. Besides infrastructure (security group, instance, volume, etc), it also does:
-- Pulls the latest snapshot from [Polkashots](https://polkashots.io)
-- Creates a docker-compose with the [latest polkadot's release](https://github.com/paritytech/polkadot/releases) and nginx reverse-proxy (for libp2p port).
+Terraform module to bootstrap ready-to-use _single node_ (or optionally _active-standby_) Kusama/Polkadot validators in Scaleway. Besides infrastructure components (security group, instance, volume, etc), it also:
+
+- Optionally pulls latest snapshot from [Polkashots](https://polkashots.io)
+- [Node exporter](https://github.com/prometheus/node_exporter) with HTTPs to securly pull metrics from your monitoring systems.
+- Nginx as a reverse proxy for libp2p
+- Support for different deplotments methods: either using docker/docker-compose or deploying the binary itself in the host.
+
+It uses the latest official Ubuntu 20.04 LTS (no custom image). 
 
 ## Requirements
 
@@ -21,9 +26,8 @@ More information within the [Scaleway Terraform Provider](https://registry.terra
 module "kusama_validator" {
   source = "github.com/cloudstaking/terraform-scaleway-polkadot?ref=1.3.0"
 
-  instance_name       = "ksm-validator"
-  security_group_name = "ksm-validator"
-  chain               = "kusama"
+  instance_name = "ksm-validator"
+  ssh_key       = "ssh-rsa XXXXXXXXXXXXXX"
 }
 ```
 
@@ -38,43 +42,33 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| github | n/a |
 | scaleway | n/a |
 
 ## Modules
 
-No Modules.
+| Name | Source | Version |
+|------|--------|---------|
+| cloud_init | ../cloud_init |  |
 
 ## Resources
 
 | Name |
 |------|
-| [github_release](https://registry.terraform.io/providers/integrations/github/latest/docs/data-sources/release) |
-| [scaleway_account_ssh_key](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/resources/account_ssh_key) |
-| [scaleway_instance_ip](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/resources/instance_ip) |
-| [scaleway_instance_security_group](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/resources/instance_security_group) |
-| [scaleway_instance_server](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/resources/instance_server) |
-| [scaleway_instance_volume](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/resources/instance_volume) |
+| [scaleway_account_ssh_key](https://registry.terraform.io/providers/hashicorp/scaleway/latest/docs/resources/account_ssh_key) |
+| [scaleway_instance_ip](https://registry.terraform.io/providers/hashicorp/scaleway/latest/docs/resources/instance_ip) |
+| [scaleway_instance_security_group](https://registry.terraform.io/providers/hashicorp/scaleway/latest/docs/resources/instance_security_group) |
+| [scaleway_instance_server](https://registry.terraform.io/providers/hashicorp/scaleway/latest/docs/resources/instance_server) |
+| [scaleway_instance_volume](https://registry.terraform.io/providers/hashicorp/scaleway/latest/docs/resources/instance_volume) |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| additional\_volume | By default, DEV1-M comes with 40GB disk size. Set this variable in order to create an additional volume (mounted in /srv) | `bool` | `true` | no |
-| additional\_volume\_size | Volume size where the chain state is going to be saved (only applies if additional\_volume variable set) - check Kusama/Polkadot requirements | `number` | `200` | no |
-| chain | Chain name: kusama or polkadot. Variable required to download the latest snapshot from polkashots.io | `string` | `"kusama"` | no |
-| enable\_polkashots | Pull latest Polkadot/Kusama (depending on chain variable) from polkashots.io | `bool` | `true` | no |
-| instance\_name | Name of the Scaleway instance | `string` | `"validator"` | no |
-| instance\_type | Instance type: for Kusama DEV1-M is fine, for Polkadot maybe GP1-M. Check requirements in the Polkadot wiki | `string` | `"DEV1-M"` | no |
-| polkadot\_additional\_common\_flags | Application layer - when `enable_docker_compose = true`, the content of this variable will be appended to the polkadot command arguments | `string` | `""` | no |
-| security\_group\_name | Security group name | `string` | `""` | no |
-| security\_group\_whitelisted\_ssh\_ip | List of CIDRs the instance is going to accept SSH connections from. | `string` | `"0.0.0.0/0"` | no |
-| ssh\_key | SSH Key to use for the instance | `any` | n/a | yes |
-| tags | Tags for the instance | `list` | `[]` | no |
+No input.
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| http\_password | Password to access private endpoints (e.g node\_exporter) |
+| http\_username | Username to access private endpoints (e.g node\_exporter) |
 | validator\_public\_ip | Validator public IP address, you can use it to SSH into it |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
