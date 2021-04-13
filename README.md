@@ -14,7 +14,6 @@ It uses the latest official Ubuntu 20.04 LTS (no custom image).
 It requires to have Scaleway account and the following environment variables exported. 
 
 ```
-export SCW_DEFAULT_ORGANIZATION_ID=XXXXX-XXX-XXXX-XXXXXXXXX
 export SCW_ACCESS_KEY=YYYYYYYYYY
 export SCW_SECRET_KEY=ZZZZZZZZZ
 ```
@@ -24,8 +23,8 @@ More information within the [Scaleway Terraform Provider](https://registry.terra
 ## Usage
 
 ```hcl
-module "validator" {
-  source = "github.com/cloudstaking/terraform-scaleway-polkadot?ref=1.2.0"
+module "kusama_validator" {
+  source = "github.com/cloudstaking/terraform-scaleway-polkadot?ref=1.3.0"
 
   instance_name = "ksm-validator"
   ssh_key       = "ssh-rsa XXXXXXXXXXXXXX"
