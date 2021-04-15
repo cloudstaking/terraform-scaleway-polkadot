@@ -65,7 +65,7 @@ If `enable_polkashots` is set, it'll take ~10 minutes to download and extract th
 | ssh\_key | SSH Key to use for the instance | `any` | n/a | yes |
 | application\_layer | You can deploy the Polkadot using docker containers or in the host itself (using the binary) | `string` | `"host"` | no |
 | chain | Chain name: kusama or polkadot. Variable required to download the latest snapshot from polkashots.io | `string` | `"kusama"` | no |
-| disk\_size | Disk size. For digital ocean and Scaleway volume is created and mounted under /home | `number` | `200` | no |
+| disk\_size | Disk size. Volume is created and mounted under /home | `number` | `200` | no |
 | enable\_polkashots | Pull latest Polkadot/Kusama (depending on chain variable) from polkashots.io | `bool` | `false` | no |
 | http\_password | Password to access endpoints (e.g node\_exporter) | `string` | `""` | no |
 | http\_username | Username to access endpoints (e.g node\_exporter) | `string` | `""` | no |
