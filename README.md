@@ -24,7 +24,7 @@ More information within the [Scaleway Terraform Provider](https://registry.terra
 
 ```hcl
 module "kusama_validator" {
-  source = "github.com/cloudstaking/terraform-scaleway-polkadot?ref=1.3.0"
+  source = "github.com/cloudstaking/terraform-scaleway-polkadot?ref=1.0.0"
 
   instance_name = "ksm-validator"
   ssh_key       = "ssh-rsa XXXXXXXXXXXXXX"
