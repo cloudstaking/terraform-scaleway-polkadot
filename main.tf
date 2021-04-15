@@ -25,6 +25,16 @@ resource "scaleway_instance_security_group" "validator" {
     port   = 80
   }
 
+  # https for TLS-ALPN challange only when public_fqdn is given:
+  # https://caddyserver.com/docs/automatic-https#tls-alpn-challenge
+  dynamic "inbound_rule" {
+    for_each = range(var.public_fqdn != "" ? 1 : 0)
+    content {
+      action = "accept"
+      port   = 443
+    }
+  }
+
   # node-exporter
   inbound_rule {
     action = "accept"
